@@ -9,6 +9,8 @@ import es.uva.eda.clases.Persona;
 
 public class PracticaEda {
 
+	private static int posicionNombre=1;
+	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Scanner in = new Scanner(System.in);
@@ -33,8 +35,10 @@ public class PracticaEda {
 		int fechaFin=traduceFecha(fecha2);
 		Map<String,Nombre> mapaApariciones=new HashMap<>();
 		insercion(fechaInicio,fechaFin,dat,mapaApariciones);
-		int posicionNombre=1;
-		
+		int numAparicionesNombre=mapaApariciones.get(nombreMostrar).getNumApariciones();
+		PriorityQueue<Nombre> nMasApariciones= new PriorityQueue<>(numeroMostrar);
+		mapaApariciones.forEach((k,v) -> extraccion(k,v,mapaApariciones,nMasApariciones,numAparicionesNombre,numeroMostrar));
+		System.out.println(posicionNombre);
 	}
 	
 	
@@ -50,8 +54,21 @@ public class PracticaEda {
 					Nombre datNombre= new Nombre(dat[i].getNombre(),1);
 					mapaApariciones.put(dat[i].getNombre(), datNombre);
 				}
+		}	
+	}
+	public static void extraccion(String clave,Nombre valor,Map<String,Nombre> mapaApariciones,PriorityQueue<Nombre> nMasApariciones,int numAparicionesNombre,int numeroMostrar) {
+		int aparicionesNuevo=valor.getNumApariciones();
+		if(aparicionesNuevo>numAparicionesNombre)
+			PracticaEda.posicionNombre++;
+		if(nMasApariciones.size()!=numeroMostrar) {
+			nMasApariciones.add(valor);
 		}
-		
+		else {
+			if(nMasApariciones.peek().getNumApariciones()< aparicionesNuevo) {
+				nMasApariciones.poll();
+				nMasApariciones.add(valor);
+			}			
+		}
 	}
 	public static int traduceFecha(String fec) {
 	    String[] trozos = fec.split("/");

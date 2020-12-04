@@ -1,6 +1,8 @@
 package es.uva.eda.clases;
+import java.lang.*;
+import java.util.*;
 
-public class Nombre {
+public class Nombre implements Comparable<Nombre> {
 	private String nombre;
 	private int numApariciones;
 	
@@ -20,4 +22,9 @@ public class Nombre {
 	public void setNumApariciones(int apariciones) {
 		numApariciones=apariciones;
 	}
+	
+    @Override
+    public int compareTo(Nombre comparar) {
+        return Integer.compare(this.getNumApariciones(), comparar.getNumApariciones());
+    }
 }
