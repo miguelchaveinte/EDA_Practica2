@@ -11,7 +11,6 @@ public class PracticaEda {
 	private static int personasCondicion=0;
 	
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		Scanner in = new Scanner(System.in);
 		Persona[] dat;
 		System.out.println("Nombre del fichero: ");
@@ -92,7 +91,7 @@ public class PracticaEda {
 			System.out.println("\t"+posicionNombre+"."+nombreMostrar+":"+" "+numAparicionesNombre);
 		else
 			System.out.println();
-			System.out.println("El nombre que introducio a buscar no se encontro");
+			System.out.println("El nombre que introdujo a buscar no se encontró");
 		System.out.println();
 		System.out.println("*** MEDIDAS ***");
 		System.out.printf("Tiempo de proceso: %.5f seg.%n",1e-9*t1);

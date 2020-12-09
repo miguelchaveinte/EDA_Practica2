@@ -35,6 +35,10 @@ public class Persona {
     	return fac;
     }
     public static Persona[] leeFichero(String nomfich) throws IOException {
+    	//String filePath = new File("").getAbsolutePath();
+        //BufferedReader br = new BufferedReader(new FileReader(filePath), 131072);
+    	//ClassLoader classLoader = getClass().getClassLoader();
+        //File file = new File(classLoader.getResource("fileTest.txt").getFile());
         BufferedReader br = new BufferedReader(new FileReader(("fichero/"+nomfich)), 131072);
         int n = Integer.parseInt(br.readLine());
         System.out.println("_|____|____|____|____|");
