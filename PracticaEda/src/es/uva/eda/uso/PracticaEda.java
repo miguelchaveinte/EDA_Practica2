@@ -89,9 +89,10 @@ public class PracticaEda {
 		}
 		if(numAparicionesNombre!=-1)
 			System.out.println("\t"+posicionNombre+"."+nombreMostrar+":"+" "+numAparicionesNombre);
-		else
+		else {
 			System.out.println();
 			System.out.println("El nombre que introdujo a buscar no se encontró");
+		}
 		System.out.println();
 		System.out.println("*** MEDIDAS ***");
 		System.out.printf("Tiempo de proceso: %.5f seg.%n",1e-9*t1);
