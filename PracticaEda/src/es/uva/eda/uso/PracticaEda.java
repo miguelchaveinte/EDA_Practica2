@@ -43,7 +43,7 @@ public class PracticaEda {
 		PriorityQueue<Nombre> nMasApariciones= new PriorityQueue<>(numeroMostrar);
 		mapaApariciones.forEach((k,v) -> extraccion(k,v,mapaApariciones,nMasApariciones,numAparicionesNombre,numeroMostrar));
 		t1=(System.nanoTime()-t0);
-		imprimir(nMasApariciones,numeroMostrar,nombreMostrar,numAparicionesNombre,PracticaEda.posicionNombre,t1,mapaApariciones.size(),(fechaFin-fechaInicio+1));
+		imprimir(nMasApariciones,numeroMostrar,nombreMostrar,numAparicionesNombre,t1,mapaApariciones.size(),(fechaFin-fechaInicio+1));
 	}
 	
 	
@@ -78,7 +78,7 @@ public class PracticaEda {
 		}
 	}
 	
-	public static void imprimir(PriorityQueue<Nombre> nMasApariciones,int numeroMostrar,String nombreMostrar,int numAparicionesNombre,int posicionNombre,long t1,int nombresDistintos ,int fecha) {
+	public static void imprimir(PriorityQueue<Nombre> nMasApariciones,int numeroMostrar,String nombreMostrar,int numAparicionesNombre,long t1,int nombresDistintos ,int fecha) {
 		System.out.println();
 		Nombre[] arrayOrdenado = new Nombre[numeroMostrar]; 
 		for(int i=numeroMostrar-1;i>=0;i--) {
@@ -88,10 +88,10 @@ public class PracticaEda {
 			System.out.println("\t"+(i+1)+"."+arrayOrdenado[i].getNombre()+":"+" "+arrayOrdenado[i].getNumApariciones());
 		}
 		if(numAparicionesNombre!=-1)
-			System.out.println("\t"+posicionNombre+"."+nombreMostrar+":"+" "+numAparicionesNombre);
+			System.out.println("\t"+PracticaEda.posicionNombre+"."+nombreMostrar+":"+" "+numAparicionesNombre);
 		else {
 			System.out.println();
-			System.out.println("El nombre que introdujo a buscar no se encontró");
+			System.out.println("El nombre que introdujo a buscar no se encontró.");
 		}
 		System.out.println();
 		System.out.println("*** MEDIDAS ***");
