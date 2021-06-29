@@ -4,7 +4,7 @@
 
 ([Ver Práctica 1](https://github.com/miguelchaveinte/EDA)- Base de este proyecto)
 
-Práctica 2- Nombres más comúnes, desarrollada en Java de la asignatura de Estructuras de Datos y Algoritmos en la Universidad de Valladolid (UVa).
+Práctica 2- Nombres más comunes, desarrollada en Java de la asignatura de Estructuras de Datos y Algoritmos en la Universidad de Valladolid (UVa).
 
 En el proyecto se encuentra el fichero con las [especificaciones](prac2021b_revisada.pdf) y el [fichero de datos de entrada](PracticaEda/personas_va.txt).
 
