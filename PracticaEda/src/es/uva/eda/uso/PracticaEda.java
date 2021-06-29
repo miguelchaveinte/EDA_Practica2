@@ -8,7 +8,7 @@ import java.lang.*;
 public class PracticaEda {
 
 	private static int posicionNombre=1;
-	private static int personasCondicion=0;
+	//private static int personasCondicion=0;
 	
 	public static void main(String[] args) throws IOException {
 		Scanner in = new Scanner(System.in);
@@ -25,32 +25,34 @@ public class PracticaEda {
 		String nombreMostrar=in.nextLine();
 		
 		System.out.println("*** BUCLE DE CONSULTAS ***");
-		System.out.println("Introduzca la fecha de inicio(dd/mm/aa): ");
-		String fecha1=in.nextLine();
-		int fechaInicio=traduceFecha(fecha1);
-		System.out.println("Introduzca la fecha de fin(dd/mm/aa): ");
-		String fecha2=in.nextLine();
-		int fechaFin=traduceFecha(fecha2);
+		System.out.println("Introduzca el limite de ocurrencias: ");
+		int limiteOcurrencias=in.nextInt();
+		//int fechaInicio=traduceFecha(fecha1);
+		//System.out.println("Introduzca la fecha de fin(dd/mm/aa): ");
+		//String fecha2=in.nextLine();
+		//int fechaFin=traduceFecha(fecha2);
 		long t0,t1;
 		t0 = System.nanoTime();
 		Map<String,Nombre> mapaApariciones=new HashMap<>();
-		insercion(fechaInicio,fechaFin,dat,mapaApariciones);
+		insercion(dat,mapaApariciones);
 		int numAparicionesNombre;
-		if(mapaApariciones.get(nombreMostrar)==null)
+		if(mapaApariciones.get(nombreMostrar)==null )
 			numAparicionesNombre=-1;
 		else
-			numAparicionesNombre=mapaApariciones.get(nombreMostrar).getNumApariciones();
-		PriorityQueue<Nombre> nMasApariciones= new PriorityQueue<>(numeroMostrar);
-		mapaApariciones.forEach((k,v) -> extraccion(k,v,mapaApariciones,nMasApariciones,numAparicionesNombre,numeroMostrar));
+			if(mapaApariciones.get(nombreMostrar).getNumApariciones()<limiteOcurrencias)
+				numAparicionesNombre=-2;
+			else
+				numAparicionesNombre=mapaApariciones.get(nombreMostrar).getNumApariciones();
+		//PriorityQueue<Nombre> nMasApariciones= new PriorityQueue<>(numeroMostrar);
+		PriorityQueue<Nombre> nMasApariciones= new PriorityQueue<Nombre>(Collections.reverseOrder());
+		mapaApariciones.forEach((k,v) -> extraccion(k,v,limiteOcurrencias,mapaApariciones,nMasApariciones,numAparicionesNombre,numeroMostrar));
 		t1=(System.nanoTime()-t0);
-		imprimir(nMasApariciones,numeroMostrar,nombreMostrar,numAparicionesNombre,t1,mapaApariciones.size(),(fechaFin-fechaInicio+1));
+		imprimir(nMasApariciones,numeroMostrar,nombreMostrar,numAparicionesNombre,t1,mapaApariciones.size());
 	}
 	
 	
-	public static void insercion(int fechaInicio,int fechaFin,Persona[] dat,Map<String,Nombre> mapaApariciones) {
+	public static void insercion(Persona[] dat,Map<String,Nombre> mapaApariciones) {
 		for(int i=0;i<dat.length;i++) {
-			if(fechaInicio<=dat[i].getNacimiento() && dat[i].getNacimiento()<=fechaFin) {
-				PracticaEda.personasCondicion++;
 				if(mapaApariciones.containsKey(dat[i].getNombre())) {
 					Nombre datNombre=mapaApariciones.get(dat[i].getNombre());
 					datNombre.setNumApariciones(datNombre.getNumApariciones()+1);
@@ -62,23 +64,25 @@ public class PracticaEda {
 				}
 			}
 		}	
-	}
-	public static void extraccion(String clave,Nombre valor,Map<String,Nombre> mapaApariciones,PriorityQueue<Nombre> nMasApariciones,int numAparicionesNombre,int numeroMostrar) {
+	
+	public static void extraccion(String clave,Nombre valor,int limiteOcurrencias,Map<String,Nombre> mapaApariciones,PriorityQueue<Nombre> nMasApariciones,int numAparicionesNombre,int numeroMostrar) {
 		int aparicionesNuevo=valor.getNumApariciones();
-		if(aparicionesNuevo>numAparicionesNombre)
-			PracticaEda.posicionNombre++;
-		if(nMasApariciones.size()!=numeroMostrar) {
-			nMasApariciones.add(valor);
-		}
-		else {
-			if(nMasApariciones.peek().getNumApariciones()< aparicionesNuevo) {
-				nMasApariciones.poll();
+		if(aparicionesNuevo>limiteOcurrencias) {
+			if(aparicionesNuevo<numAparicionesNombre)
+				PracticaEda.posicionNombre++;
+			if(nMasApariciones.size()!=numeroMostrar) {
 				nMasApariciones.add(valor);
-			}			
+			}
+			else {
+				if(nMasApariciones.peek().getNumApariciones()> aparicionesNuevo) {
+					nMasApariciones.poll();
+					nMasApariciones.add(valor);
+				}			
+			}
 		}
 	}
 	
-	public static void imprimir(PriorityQueue<Nombre> nMasApariciones,int numeroMostrar,String nombreMostrar,int numAparicionesNombre,long t1,int nombresDistintos ,int fecha) {
+	public static void imprimir(PriorityQueue<Nombre> nMasApariciones,int numeroMostrar,String nombreMostrar,int numAparicionesNombre,long t1,int nombresDistintos ) {
 		System.out.println();
 		Nombre[] arrayOrdenado = new Nombre[numeroMostrar]; 
 		for(int i=numeroMostrar-1;i>=0;i--) {
@@ -87,18 +91,19 @@ public class PracticaEda {
 		for(int i=0;i<numeroMostrar;i++) {
 			System.out.println("\t"+(i+1)+"."+arrayOrdenado[i].getNombre()+":"+" "+arrayOrdenado[i].getNumApariciones());
 		}
-		if(numAparicionesNombre!=-1)
+		if(numAparicionesNombre!=-1 && numAparicionesNombre != -2)
 			System.out.println("\t"+PracticaEda.posicionNombre+"."+nombreMostrar+":"+" "+numAparicionesNombre);
 		else {
 			System.out.println();
-			System.out.println("El nombre que introdujo a buscar no se encontró.");
+			if (numAparicionesNombre==-1)
+				System.out.println("El nombre que introdujo a buscar no se encontró.");
+			else
+				System.out.println("El nombre que introdujo a buscar tiene un número de apariciones menor.");
 		}
 		System.out.println();
 		System.out.println("*** MEDIDAS ***");
 		System.out.printf("Tiempo de proceso: %.5f seg.%n",1e-9*t1);
-		System.out.println("m= "+PracticaEda.personasCondicion+" personas cumplen las condiciones");
 		System.out.println("p= "+nombresDistintos+" nombres distintos");
-		System.out.println("d= "+fecha+" dias en el intervalo");
 	}
 	public static int traduceFecha(String fec) {
 	    String[] trozos = fec.split("/");
