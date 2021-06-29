@@ -1,6 +1,8 @@
 # EDA_Practica2
 
-#### Curso 2020/2021 - EDA - Autor: Miguel Chaveinte García
+#### Curso 2020/2021 - EDA - Autor: Miguel Chaveinte García 
+
+([Ver Práctica 1](https://github.com/miguelchaveinte/EDA)- Base de este proyecto)
 
 Práctica 2- Nombres más comúnes, desarrollada en Java de la asignatura de Estructuras de Datos y Algoritmos en la Universidad de Valladolid (UVa).
 
