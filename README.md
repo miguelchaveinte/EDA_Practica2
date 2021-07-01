@@ -8,4 +8,4 @@ Práctica 2- Nombres más comunes, desarrollada en Java de la asignatura de Estr
 
 En el proyecto se encuentra el fichero con las [especificaciones](prac2021b_revisada.pdf) y el [fichero de datos de entrada](PracticaEda/personas_va.txt).
 
-(En el último commit se encuentra con las modificaciones realizadas en la defensa del trabajo. Ir al penúltimo commit para ver el proyecto con las especificaciones de la práctica iniciales.)
+(En el último commit se encuentra con las modificaciones realizadas en la defensa del trabajo. Ir al [penúltimo commit del exámen](https://github.com/miguelchaveinte/EDA_Practica2/tree/915d5074faffe32ddfbfddc61abad841ece0dd19) para ver el proyecto con las especificaciones de la práctica iniciales.)
